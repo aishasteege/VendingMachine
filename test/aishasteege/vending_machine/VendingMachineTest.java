@@ -29,8 +29,15 @@ public class VendingMachineTest {
 	@Test
 	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
 		VendingMachine VendingMachine = new VendingMachine() ;
-		
-		assertEquals( "", VendingMachine.PrintDisplay(), "INSERT COIN");
+		assertEquals( VendingMachine.PrintDisplay(), "INSERT COIN");
 	}
+	
+	@Test
+	public void WhenQuarterIsAddedShowValue(){
+		VendingMachine VendingMachine = new VendingMachine() ;
+		VendingMachine.AddCoin( Coin.QUARTER );		
+		assertEquals( VendingMachine.PrintDisplay(), "$0.25");
+	}
+	
 
 }
