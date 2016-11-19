@@ -18,30 +18,31 @@ public class VendingMachineTest {
 //	public static void tearDownAfterClass() throws Exception {
 //	}
 //
-//	@Before
-//	public void setUp() throws Exception {
-//	}
 //
 //	@After
 //	public void tearDown() throws Exception {
 //	}
 
+	VendingMachine VendingMachine;
+	
+	@Before
+	public void setUp(){
+		VendingMachine = new VendingMachine() ;
+	}
+	
 	@Test
 	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
-		VendingMachine VendingMachine = new VendingMachine() ;
 		assertEquals( VendingMachine.PrintDisplay(), "INSERT COIN");
 	}
 	
 	@Test
-	public void WhenQuarterIsAddedShowValue(){
-		VendingMachine VendingMachine = new VendingMachine() ;
+	public void WhenQuarterIsAddedShowTwentyFive(){
 		VendingMachine.AddCoin( Coin.QUARTER );		
 		assertEquals( VendingMachine.PrintDisplay(), "$0.25");
 	}
 	
 	@Test
 	public void WhenValidCoinsAreAddedShowCompinedValue(){
-		VendingMachine VendingMachine = new VendingMachine() ;
 		VendingMachine.AddCoin( Coin.NICKEL );	
 		assertEquals( VendingMachine.PrintDisplay(), "$0.05");
 		VendingMachine.AddCoin( Coin.DIME );	
@@ -50,4 +51,5 @@ public class VendingMachineTest {
 		assertEquals( VendingMachine.PrintDisplay(), "$0.40");
 	}
 
+	
 }
