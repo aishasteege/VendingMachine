@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class DisplayOutput {
+public class VendingMachineTest {
 
 //	@BeforeClass
 //	public static void setUpBeforeClass() throws Exception {
@@ -27,7 +27,7 @@ public class DisplayOutput {
 //	}
 
 	@Test
-	public void test() {
+	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
 		VendingMachine VendingMachine = new VendingMachine() ;
 		
 		assertEquals( "", VendingMachine.PrintDisplay(), "INSERT COIN");
