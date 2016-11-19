@@ -9,7 +9,7 @@ public class VendingMachine {
 		current_transaction = 0;
 	}
 
-	String PrintDisplay()
+	String getDisplayString()
 	{
 		DecimalFormat moneyFormat = new DecimalFormat( "0.00" );
 		
@@ -23,7 +23,7 @@ public class VendingMachine {
 		}
 	}
 
-	public void AddCoin( Coin coin ) {
+	public void addCoin( Coin coin ) {
 		switch ( coin )
 		{
 		case NICKEL:

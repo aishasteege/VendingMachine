@@ -32,24 +32,25 @@ public class VendingMachineTest {
 	
 	@Test
 	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
-		assertEquals( VendingMachine.PrintDisplay(), "INSERT COIN");
+		assertEquals( VendingMachine.getDisplayString(), "INSERT COIN");
 	}
 	
 	@Test
 	public void WhenQuarterIsAddedShowTwentyFive(){
-		VendingMachine.AddCoin( Coin.QUARTER );		
-		assertEquals( VendingMachine.PrintDisplay(), "$0.25");
+		VendingMachine.addCoin( Coin.QUARTER );		
+		assertEquals( VendingMachine.getDisplayString(), "$0.25");
 	}
 	
 	@Test
 	public void WhenValidCoinsAreAddedShowCompinedValue(){
-		VendingMachine.AddCoin( Coin.NICKEL );	
-		assertEquals( VendingMachine.PrintDisplay(), "$0.05");
-		VendingMachine.AddCoin( Coin.DIME );	
-		assertEquals( VendingMachine.PrintDisplay(), "$0.15");
-		VendingMachine.AddCoin( Coin.QUARTER );		
-		assertEquals( VendingMachine.PrintDisplay(), "$0.40");
+		VendingMachine.addCoin( Coin.NICKEL );	
+		assertEquals( VendingMachine.getDisplayString(), "$0.05");
+		VendingMachine.addCoin( Coin.DIME );	
+		assertEquals( VendingMachine.getDisplayString(), "$0.15");
+		VendingMachine.addCoin( Coin.QUARTER );		
+		assertEquals( VendingMachine.getDisplayString(), "$0.40");
 	}
 
+	
 	
 }
