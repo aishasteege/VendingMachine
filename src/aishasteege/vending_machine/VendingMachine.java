@@ -1,6 +1,6 @@
 package aishasteege.vending_machine;
 
-
+import java.text.DecimalFormat;
 
 public class VendingMachine {
 	float current_transaction;
@@ -11,17 +11,32 @@ public class VendingMachine {
 
 	String PrintDisplay()
 	{
+		DecimalFormat moneyFormat = new DecimalFormat( "0.00" );
+		
 		if ( current_transaction == 0 )
 		{
 			return "INSERT COIN";
 		}
 		else 
 		{
-			return "$" + String.valueOf(current_transaction);
+			return "$" + moneyFormat.format(current_transaction);
 		}
 	}
 
 	public void AddCoin( Coin coin ) {
-		current_transaction = 0.25f;
+		switch ( coin )
+		{
+		case NICKEL:
+			current_transaction += 0.05f;
+			break;
+		case DIME:
+			current_transaction += 0.10f;
+			break;
+		case QUARTER:
+			current_transaction += 0.25f;	
+			break;
+		default:
+			break;
+		}
 	}
 }

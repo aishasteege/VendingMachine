@@ -39,5 +39,15 @@ public class VendingMachineTest {
 		assertEquals( VendingMachine.PrintDisplay(), "$0.25");
 	}
 	
+	@Test
+	public void WhenValidCoinsAreAddedShowCompinedValue(){
+		VendingMachine VendingMachine = new VendingMachine() ;
+		VendingMachine.AddCoin( Coin.NICKEL );	
+		assertEquals( VendingMachine.PrintDisplay(), "$0.05");
+		VendingMachine.AddCoin( Coin.DIME );	
+		assertEquals( VendingMachine.PrintDisplay(), "$0.15");
+		VendingMachine.AddCoin( Coin.QUARTER );		
+		assertEquals( VendingMachine.PrintDisplay(), "$0.40");
+	}
 
 }
