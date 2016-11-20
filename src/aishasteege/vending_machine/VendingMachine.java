@@ -4,15 +4,11 @@ import java.text.DecimalFormat;
 
 public class VendingMachine {
 	int[] current_transaction_coins;
-	int[] return_coins;
 
 	float current_transaction;
 
-	Integer coin_return_count;
-
 	public VendingMachine() {
 		current_transaction = 0.0f;
-		coin_return_count = 0;
 
 		current_transaction_coins = new int[Coin.NUM_COINS];
 		for (int i = 0; i < Coin.NUM_COINS; i++) {
@@ -33,7 +29,7 @@ public class VendingMachine {
 	public void addCoin(Coin coin) {
 		switch (coin) {
 		case PENNY:
-			coin_return_count++;
+			current_transaction_coins[Coin.PENNY.getIdx()]++;
 			break;
 		case NICKEL:
 			current_transaction += 0.05f;
@@ -53,27 +49,26 @@ public class VendingMachine {
 	public String returnCoin() {
 		String coinReturn = "";
 
-		for (int i = 0; i < coin_return_count; i++) {
+		while (current_transaction_coins[Coin.PENNY.getIdx()] > 0) {
 			coinReturn += "(1)";
+			current_transaction_coins[Coin.PENNY.getIdx()]--;
 		}
-		coin_return_count = 0;
 
 		while (current_transaction_coins[Coin.NICKEL.getIdx()] > 0) {
 			coinReturn += "(5)";
 			current_transaction_coins[Coin.NICKEL.getIdx()]--;
 		}
 
-		while (current_transaction_coins[Coin.DIME.getIdx()] >0) {
+		while (current_transaction_coins[Coin.DIME.getIdx()] > 0) {
 			coinReturn += "(10)";
 			current_transaction_coins[Coin.DIME.getIdx()]--;
 		}
-		
-		while (current_transaction_coins[Coin.QUARTER.getIdx()] >0) {
+
+		while (current_transaction_coins[Coin.QUARTER.getIdx()] > 0) {
 			coinReturn += "(25)";
 			current_transaction_coins[Coin.QUARTER.getIdx()]--;
 		}
-		
-		coin_return_count = 0;
+
 		current_transaction = 0.0f;
 
 		return coinReturn;
