@@ -1,77 +1,43 @@
 package aishasteege.vending_machine;
 
-import java.text.DecimalFormat;
+public class VendingMachine
+{
+	CoinMechanism m_coin_mechanism;
 
-public class VendingMachine {
-	int[] current_transaction_coins;
-	String coinReturn;
-
-	float current_transaction;
-
-	public VendingMachine() {
-		current_transaction = 0.0f;
-		coinReturn = "";
-
-		current_transaction_coins = new int[Coin.NUM_COINS];
-		for (int i = 0; i < Coin.NUM_COINS; i++) {
-			current_transaction_coins[i] = 0;
-		}
+	public VendingMachine()
+	{
+		m_coin_mechanism = new CoinMechanism();
 	}
 
-	public String getDisplayString() {
-		DecimalFormat moneyFormat = new DecimalFormat("0.00");
-
-		if (current_transaction == 0) {
+	public String getDisplayString()
+	{
+		if (m_coin_mechanism.isEmpty())
+		{
 			return "INSERT COIN";
-		} else {
-			return "$" + moneyFormat.format(current_transaction);
+		}
+		else
+		{
+			return m_coin_mechanism.GetCurrentTransactionString();
 		}
 	}
-
-	public void addCoin(Coin coin) {
-		switch (coin) {
-		case PENNY:
-			coinReturn += "(1)";
-			break;
-		case NICKEL:
-			current_transaction += 0.05f;
-			current_transaction_coins[Coin.NICKEL.getIdx()]++;
-			break;
-		case DIME:
-			current_transaction += 0.10f;
-			current_transaction_coins[Coin.DIME.getIdx()]++;
-			break;
-		case QUARTER:
-			current_transaction += 0.25f;
-			current_transaction_coins[Coin.QUARTER.getIdx()]++;
-			break;
-		}
+	
+	public String getCoinReturnString()
+	{
+		return m_coin_mechanism.getCoinReturnString();
 	}
 
-	public void pressCoinReturn() {
-		while (current_transaction_coins[Coin.NICKEL.getIdx()] > 0) {
-			coinReturn += "(5)";
-			current_transaction_coins[Coin.NICKEL.getIdx()]--;
-		}
-
-		while (current_transaction_coins[Coin.DIME.getIdx()] > 0) {
-			coinReturn += "(10)";
-			current_transaction_coins[Coin.DIME.getIdx()]--;
-		}
-
-		while (current_transaction_coins[Coin.QUARTER.getIdx()] > 0) {
-			coinReturn += "(25)";
-			current_transaction_coins[Coin.QUARTER.getIdx()]--;
-		}
-
-		current_transaction = 0.0f;
+	public void addCoin(Coin coin)
+	{
+		m_coin_mechanism.addCoin(coin);
 	}
 
-	public String getCoinReturnString() {
-		return coinReturn;
+	public void pressCoinReturn()
+	{
+		m_coin_mechanism.pressCoinReturn();
 	}
 
-	public void emptyCoinReturn() {
-		coinReturn = "";
+	public void emptyCoinReturn()
+	{
+		m_coin_mechanism.emptyCoinReturn();
 	}
 }
