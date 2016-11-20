@@ -32,34 +32,34 @@ public class VendingMachineTest {
 
 	@Test
 	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
-		assertEquals(VendingMachine.getDisplayString(), "INSERT COIN");
+		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
 	}
 
 	@Test
 	public void WhenQuarterIsAddedShowTwentyFive() {
 		VendingMachine.addCoin(Coin.QUARTER);
-		assertEquals(VendingMachine.getDisplayString(), "$0.25");
+		assertEquals("$0.25", VendingMachine.getDisplayString());
 	}
 
 	@Test
 	public void WhenValidCoinsAreAddedShowCompinedValue() {
 		VendingMachine.addCoin(Coin.NICKEL);
-		assertEquals(VendingMachine.getDisplayString(), "$0.05");
+		assertEquals("$0.05", VendingMachine.getDisplayString());
 		VendingMachine.addCoin(Coin.DIME);
-		assertEquals(VendingMachine.getDisplayString(), "$0.15");
+		assertEquals("$0.15", VendingMachine.getDisplayString());
 		VendingMachine.addCoin(Coin.QUARTER);
-		assertEquals(VendingMachine.getDisplayString(), "$0.40");
+		assertEquals("$0.40", VendingMachine.getDisplayString());
 	}
 
 	@Test
 	public void AddInvalidCoinsToCoinReturn() {
 		VendingMachine.addCoin(Coin.PENNY);
-		assertEquals(VendingMachine.getDisplayString(), "INSERT COIN");
-		assertEquals(VendingMachine.returnCoin(), "(1)");
+		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
+		assertEquals("(1)", VendingMachine.returnCoin());
 
 		VendingMachine.addCoin(Coin.PENNY);
 		VendingMachine.addCoin(Coin.PENNY);
-		assertEquals(VendingMachine.returnCoin(), "(1)(1)");
+		assertEquals("(1)(1)", VendingMachine.returnCoin());
 	}
 
 }
