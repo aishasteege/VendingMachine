@@ -55,11 +55,12 @@ public class VendingMachineTest {
 	public void AddInvalidCoinsToCoinReturnAndClearWhenReturned() {
 		VendingMachine.addCoin(Coin.PENNY);
 		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
-		assertEquals("(1)", VendingMachine.returnCoin());
+		assertEquals("(1)", VendingMachine.getCoinReturnString());
+		VendingMachine.emptyCoinReturn();
 
 		VendingMachine.addCoin(Coin.PENNY);
 		VendingMachine.addCoin(Coin.PENNY);
-		assertEquals("(1)(1)", VendingMachine.returnCoin());
+		assertEquals("(1)(1)", VendingMachine.getCoinReturnString());
 	}
 
 	@Test
@@ -67,8 +68,10 @@ public class VendingMachineTest {
 		VendingMachine.addCoin(Coin.DIME);
 		VendingMachine.addCoin(Coin.QUARTER);
 		assertEquals("$0.35", VendingMachine.getDisplayString());
-		
-		assertEquals("(10)(25)", VendingMachine.returnCoin());
+
+		VendingMachine.pressCoinReturn();
+		assertEquals("(10)(25)", VendingMachine.getCoinReturnString());
 		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
+		VendingMachine.emptyCoinReturn();
 	}
 }

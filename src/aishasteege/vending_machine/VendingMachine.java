@@ -4,11 +4,13 @@ import java.text.DecimalFormat;
 
 public class VendingMachine {
 	int[] current_transaction_coins;
+	String coinReturn;
 
 	float current_transaction;
 
 	public VendingMachine() {
 		current_transaction = 0.0f;
+		coinReturn = "";
 
 		current_transaction_coins = new int[Coin.NUM_COINS];
 		for (int i = 0; i < Coin.NUM_COINS; i++) {
@@ -29,7 +31,7 @@ public class VendingMachine {
 	public void addCoin(Coin coin) {
 		switch (coin) {
 		case PENNY:
-			current_transaction_coins[Coin.PENNY.getIdx()]++;
+			coinReturn += "(1)";
 			break;
 		case NICKEL:
 			current_transaction += 0.05f;
@@ -46,14 +48,7 @@ public class VendingMachine {
 		}
 	}
 
-	public String returnCoin() {
-		String coinReturn = "";
-
-		while (current_transaction_coins[Coin.PENNY.getIdx()] > 0) {
-			coinReturn += "(1)";
-			current_transaction_coins[Coin.PENNY.getIdx()]--;
-		}
-
+	public void pressCoinReturn() {
 		while (current_transaction_coins[Coin.NICKEL.getIdx()] > 0) {
 			coinReturn += "(5)";
 			current_transaction_coins[Coin.NICKEL.getIdx()]--;
@@ -70,7 +65,13 @@ public class VendingMachine {
 		}
 
 		current_transaction = 0.0f;
+	}
 
+	public String getCoinReturnString() {
 		return coinReturn;
+	}
+
+	public void emptyCoinReturn() {
+		coinReturn = "";
 	}
 }
