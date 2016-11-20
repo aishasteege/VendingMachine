@@ -51,4 +51,15 @@ public class VendingMachineTest {
 		assertEquals(VendingMachine.getDisplayString(), "$0.40");
 	}
 
+	@Test
+	public void AddInvalidCoinsToCoinReturn() {
+		VendingMachine.addCoin(Coin.PENNY);
+		assertEquals(VendingMachine.getDisplayString(), "INSERT COIN");
+		assertEquals(VendingMachine.returnCoin(), "(1)");
+
+		VendingMachine.addCoin(Coin.PENNY);
+		VendingMachine.addCoin(Coin.PENNY);
+		assertEquals(VendingMachine.returnCoin(), "(1)(1)");
+	}
+
 }

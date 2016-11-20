@@ -5,11 +5,14 @@ import java.text.DecimalFormat;
 public class VendingMachine {
 	float current_transaction;
 
+	Integer coin_return_count;
+
 	VendingMachine() {
-		current_transaction = 0;
+		current_transaction = 0.0f;
+		coin_return_count = 0;
 	}
 
-	String getDisplayString() {
+	public String getDisplayString() {
 		DecimalFormat moneyFormat = new DecimalFormat("0.00");
 
 		if (current_transaction == 0) {
@@ -21,6 +24,9 @@ public class VendingMachine {
 
 	public void addCoin(Coin coin) {
 		switch (coin) {
+		case PENNY:
+			coin_return_count++;
+			break;
 		case NICKEL:
 			current_transaction += 0.05f;
 			break;
@@ -33,5 +39,14 @@ public class VendingMachine {
 		default:
 			break;
 		}
+	}
+
+	public String returnCoin() {
+		String coinReturn = "";
+		for (int i = 0; i < coin_return_count; i++) {
+			coinReturn += "(1)";
+		}
+		coin_return_count = 0;
+		return coinReturn;
 	}
 }
