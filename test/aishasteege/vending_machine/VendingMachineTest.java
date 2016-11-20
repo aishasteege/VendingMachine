@@ -9,55 +9,55 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class VendingMachineTest {
-	VendingMachine VendingMachine;
+	VendingMachine coinMechanism;
 
 	@Before
 	public void setUp() {
-		VendingMachine = new VendingMachine();
+		coinMechanism = new VendingMachine();
 	}
 
 	@Test
 	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
-		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
+		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
 	}
 
 	@Test
 	public void WhenQuarterIsAddedShowTwentyFive() {
-		VendingMachine.addCoin(Coin.QUARTER);
-		assertEquals("$0.25", VendingMachine.getDisplayString());
+		coinMechanism.addCoin(Coin.QUARTER);
+		assertEquals("$0.25", coinMechanism.getDisplayString());
 	}
 
 	@Test
 	public void WhenValidCoinsAreAddedShowCombinedValue() {
-		VendingMachine.addCoin(Coin.NICKEL);
-		assertEquals("$0.05", VendingMachine.getDisplayString());
-		VendingMachine.addCoin(Coin.DIME);
-		assertEquals("$0.15", VendingMachine.getDisplayString());
-		VendingMachine.addCoin(Coin.QUARTER);
-		assertEquals("$0.40", VendingMachine.getDisplayString());
+		coinMechanism.addCoin(Coin.NICKEL);
+		assertEquals("$0.05", coinMechanism.getDisplayString());
+		coinMechanism.addCoin(Coin.DIME);
+		assertEquals("$0.15", coinMechanism.getDisplayString());
+		coinMechanism.addCoin(Coin.QUARTER);
+		assertEquals("$0.40", coinMechanism.getDisplayString());
 	}
 
 	@Test
 	public void AddInvalidCoinsToCoinReturnAndClearWhenReturned() {
-		VendingMachine.addCoin(Coin.PENNY);
-		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
-		assertEquals("(1)", VendingMachine.getCoinReturnString());
-		VendingMachine.emptyCoinReturn();
+		coinMechanism.addCoin(Coin.PENNY);
+		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
+		assertEquals("(1)", coinMechanism.getCoinReturnString());
+		coinMechanism.emptyCoinReturn();
 
-		VendingMachine.addCoin(Coin.PENNY);
-		VendingMachine.addCoin(Coin.PENNY);
-		assertEquals("(1)(1)", VendingMachine.getCoinReturnString());
+		coinMechanism.addCoin(Coin.PENNY);
+		coinMechanism.addCoin(Coin.PENNY);
+		assertEquals("(1)(1)", coinMechanism.getCoinReturnString());
 	}
 
 	@Test
 	public void ReturnCurrentTransactionAndClearDisplayWhenReturnCoinButtonPressed() {
-		VendingMachine.addCoin(Coin.DIME);
-		VendingMachine.addCoin(Coin.QUARTER);
-		assertEquals("$0.35", VendingMachine.getDisplayString());
+		coinMechanism.addCoin(Coin.DIME);
+		coinMechanism.addCoin(Coin.QUARTER);
+		assertEquals("$0.35", coinMechanism.getDisplayString());
 
-		VendingMachine.pressCoinReturn();
-		assertEquals("(10)(25)", VendingMachine.getCoinReturnString());
-		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
-		VendingMachine.emptyCoinReturn();
+		coinMechanism.pressCoinReturn();
+		assertEquals("(10)(25)", coinMechanism.getCoinReturnString());
+		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
+		coinMechanism.emptyCoinReturn();
 	}
 }
