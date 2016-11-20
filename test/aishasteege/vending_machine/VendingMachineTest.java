@@ -42,7 +42,7 @@ public class VendingMachineTest {
 	}
 
 	@Test
-	public void WhenValidCoinsAreAddedShowCompinedValue() {
+	public void WhenValidCoinsAreAddedShowCombinedValue() {
 		VendingMachine.addCoin(Coin.NICKEL);
 		assertEquals("$0.05", VendingMachine.getDisplayString());
 		VendingMachine.addCoin(Coin.DIME);
@@ -52,7 +52,7 @@ public class VendingMachineTest {
 	}
 
 	@Test
-	public void AddInvalidCoinsToCoinReturn() {
+	public void AddInvalidCoinsToCoinReturnAndClearWhenReturned() {
 		VendingMachine.addCoin(Coin.PENNY);
 		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
 		assertEquals("(1)", VendingMachine.returnCoin());
@@ -62,4 +62,13 @@ public class VendingMachineTest {
 		assertEquals("(1)(1)", VendingMachine.returnCoin());
 	}
 
+	@Test
+	public void ReturnCurrentTransactionAndClearDisplayWhenReturnCoinButtonPressed() {
+		VendingMachine.addCoin(Coin.DIME);
+		VendingMachine.addCoin(Coin.QUARTER);
+		assertEquals("$0.35", VendingMachine.getDisplayString());
+		
+		assertEquals("(10)(25)", VendingMachine.returnCoin());
+		assertEquals("INSERT COIN", VendingMachine.getDisplayString());
+	}
 }
