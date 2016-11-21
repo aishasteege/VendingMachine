@@ -61,4 +61,9 @@ public class CoinMechanismTest
 		assertTrue(coinMechanism.isEmpty());
 		coinMechanism.emptyCoinReturn();
 	}
+	
+	public void ReturnFalseIfTransactionCannotBeCompleted()
+	{
+		assertFalse(coinMechanism.completeTransaction(.50f));
+	}
 }

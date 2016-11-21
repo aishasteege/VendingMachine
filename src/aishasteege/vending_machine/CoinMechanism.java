@@ -84,4 +84,9 @@ public class CoinMechanism
 	{
 		coinReturn = "";
 	}
+
+	public boolean completeTransaction(float transaction_price)
+	{
+		return (transaction_price > current_transaction);
+	}
 }
