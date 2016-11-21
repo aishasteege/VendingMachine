@@ -50,6 +50,6 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.SelectProduct(Product.CHIPS);
 		assertEquals("THANK YOU", vendingMachine.getDisplayString());
-
+		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
 }
