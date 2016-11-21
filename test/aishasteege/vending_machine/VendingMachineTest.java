@@ -52,4 +52,33 @@ public class VendingMachineTest
 		assertEquals("THANK YOU", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
+	
+	@Test
+	public void DispenseProductToUser()
+	{
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.SelectProduct(Product.CHIPS);
+		
+		assertEquals("[A BIG BAG OF CHIPS]", vendingMachine.getProductDispenseString());
+		vendingMachine.takeProduct();
+		
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.SelectProduct(Product.COLA);
+		
+		assertEquals("[AN ICE COLD COLA]", vendingMachine.getProductDispenseString());
+		vendingMachine.takeProduct();
+		
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.SelectProduct(Product.CANDY);
+		
+		assertEquals("[SWEET SWEET CANDY]", vendingMachine.getProductDispenseString());
+		vendingMachine.takeProduct();
+
+	}
 }
