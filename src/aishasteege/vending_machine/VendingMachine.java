@@ -3,15 +3,21 @@ package aishasteege.vending_machine;
 public class VendingMachine
 {
 	CoinMechanism m_coin_mechanism;
+	Product m_current_selection;
 
 	public VendingMachine()
 	{
 		m_coin_mechanism = new CoinMechanism();
+		m_current_selection = null;
 	}
 
 	public String getDisplayString()
 	{
-		if (m_coin_mechanism.isEmpty())
+		if (m_current_selection != null)
+		{
+			return "PRICE " + m_current_selection.GetPriceString();
+		}
+		else if (m_coin_mechanism.isEmpty())
 		{
 			return "INSERT COIN";
 		}
@@ -20,7 +26,7 @@ public class VendingMachine
 			return m_coin_mechanism.GetCurrentTransactionString();
 		}
 	}
-	
+
 	public String getCoinReturnString()
 	{
 		return m_coin_mechanism.getCoinReturnString();
@@ -39,5 +45,10 @@ public class VendingMachine
 	public void emptyCoinReturn()
 	{
 		m_coin_mechanism.emptyCoinReturn();
+	}
+
+	public void SelectProduct(Product product)
+	{
+		m_current_selection = product;
 	}
 }

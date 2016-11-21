@@ -8,56 +8,30 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class VendingMachineTest {
-	VendingMachine coinMechanism;
+public class VendingMachineTest
+{
+	VendingMachine vendingMachine;
 
 	@Before
-	public void setUp() {
-		coinMechanism = new VendingMachine();
+	public void setUp()
+	{
+		vendingMachine = new VendingMachine();
 	}
 
 	@Test
-	public void WhenVendingMachineDisplayStartsWithInsertCoin() {
-		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
+	public void WhenVendingMachineDisplayStartsWithInsertCoin()
+	{
+		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
 
 	@Test
-	public void WhenQuarterIsAddedShowTwentyFive() {
-		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.25", coinMechanism.getDisplayString());
-	}
-
-	@Test
-	public void WhenValidCoinsAreAddedShowCombinedValue() {
-		coinMechanism.addCoin(Coin.NICKEL);
-		assertEquals("$0.05", coinMechanism.getDisplayString());
-		coinMechanism.addCoin(Coin.DIME);
-		assertEquals("$0.15", coinMechanism.getDisplayString());
-		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.40", coinMechanism.getDisplayString());
-	}
-
-	@Test
-	public void AddInvalidCoinsToCoinReturnAndClearWhenReturned() {
-		coinMechanism.addCoin(Coin.PENNY);
-		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
-		assertEquals("(1)", coinMechanism.getCoinReturnString());
-		coinMechanism.emptyCoinReturn();
-
-		coinMechanism.addCoin(Coin.PENNY);
-		coinMechanism.addCoin(Coin.PENNY);
-		assertEquals("(1)(1)", coinMechanism.getCoinReturnString());
-	}
-
-	@Test
-	public void ReturnCurrentTransactionAndClearDisplayWhenReturnCoinButtonPressed() {
-		coinMechanism.addCoin(Coin.DIME);
-		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.35", coinMechanism.getDisplayString());
-
-		coinMechanism.pressCoinReturn();
-		assertEquals("(10)(25)", coinMechanism.getCoinReturnString());
-		assertEquals("INSERT COIN", coinMechanism.getDisplayString());
-		coinMechanism.emptyCoinReturn();
+	public void DisplayPriceOfProductWhenSelected()
+	{
+		vendingMachine.SelectProduct(Product.CANDY);
+		assertEquals("PRICE $0.65", vendingMachine.getDisplayString());
+		vendingMachine.SelectProduct(Product.CHIPS);
+		assertEquals("PRICE $0.50", vendingMachine.getDisplayString());
+		vendingMachine.SelectProduct(Product.COLA);
+		assertEquals("PRICE $1.00", vendingMachine.getDisplayString());
 	}
 }

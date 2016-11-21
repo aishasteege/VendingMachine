@@ -1,18 +1,21 @@
 package aishasteege.vending_machine;
 
-public enum Coin {
+public enum Coin
+{
 	PENNY(0), NICKEL(1), DIME(2), QUARTER(3);
 
-	int idx;
-
-	private Coin(int i) {
-		idx = i;
-	}
-
-	public int getIdx() {
-		return idx;
-	}
-	
 	public static int NUM_COINS = 4;
-    public static Coin[] COINS_INDEXED = new Coin[] {PENNY, NICKEL, DIME, QUARTER };
+	public static Coin[] COINS_INDEXED = new Coin[] { PENNY, NICKEL, DIME, QUARTER };
+
+	private int m_idx;
+
+	private Coin(int idx)
+	{
+		m_idx = idx;
+	}
+
+	public int getIdx()
+	{
+		return m_idx;
+	}
 }
