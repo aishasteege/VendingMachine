@@ -87,6 +87,15 @@ public class CoinMechanism
 
 	public boolean completeTransaction(float transaction_price)
 	{
-		return (transaction_price < current_transaction);
+		if (transaction_price <= current_transaction)
+		{
+			current_transaction = 0.0f;
+			for (int i = 0; i < Coin.NUM_COINS; i++)
+			{
+				current_transaction_coins[i] = 0;
+			}
+			return true;
+		}
+		return false;
 	}
 }

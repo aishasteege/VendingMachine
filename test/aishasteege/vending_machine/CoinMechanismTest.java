@@ -61,12 +61,34 @@ public class CoinMechanismTest
 		assertTrue(coinMechanism.isEmpty());
 		coinMechanism.emptyCoinReturn();
 	}
-	
+
 	@Test
 	public void ReturnFalseIfTransactionCannotBeCompleted()
 	{
 		assertFalse(coinMechanism.completeTransaction(.50f));
 	}
+
+	@Test
+	public void CompleteTransactionWhenEnoughMoneyHasBeenEnteredAndReturnTrue()
+	{
+		assertTrue(coinMechanism.isEmpty());
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+		
+		assertTrue(coinMechanism.completeTransaction(.50f));
+		assertTrue(coinMechanism.isEmpty());
+	}
 	
-	
+	@Test
+	public void CoinReturnGetsResetAfterTransation()
+	{
+		assertTrue(coinMechanism.isEmpty());
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+		
+		assertTrue(coinMechanism.completeTransaction(.50f));
+
+		coinMechanism.pressCoinReturn();
+		assertEquals("", coinMechanism.getCoinReturnString());
+	}
 }
