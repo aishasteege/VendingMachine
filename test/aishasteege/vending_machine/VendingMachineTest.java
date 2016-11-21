@@ -42,4 +42,14 @@ public class VendingMachineTest
 		assertEquals("PRICE $0.65", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
+	
+	@Test
+	public void DisplayThankYouAfterTransactionThenInsertCoin()
+	{
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.SelectProduct(Product.CHIPS);
+		assertEquals("THANK YOU", vendingMachine.getDisplayString());
+
+	}
 }
