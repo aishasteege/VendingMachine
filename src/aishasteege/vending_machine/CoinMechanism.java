@@ -1,33 +1,38 @@
 package aishasteege.vending_machine;
+
 import java.text.DecimalFormat;
 
-public class CoinMechanism {
+public class CoinMechanism
+{
 	int[] current_transaction_coins;
 	float current_transaction;
 	String coinReturn;
 
-	
-	public CoinMechanism() {
+	public CoinMechanism()
+	{
 		current_transaction = 0.0f;
 		coinReturn = "";
 
 		current_transaction_coins = new int[Coin.NUM_COINS];
-		for (int i = 0; i < Coin.NUM_COINS; i++) {
+		for (int i = 0; i < Coin.NUM_COINS; i++)
+		{
 			current_transaction_coins[i] = 0;
 		}
 	}
-	
-	public boolean isEmpty(){
-		return current_transaction == 0.0f ;
+
+	public boolean isEmpty()
+	{
+		return current_transaction == 0.0f;
 	}
-	
+
 	public String GetCurrentTransactionString()
 	{
 		DecimalFormat moneyFormat = new DecimalFormat("0.00");
 		return "$" + moneyFormat.format(current_transaction);
 	}
 
-	public void addCoin(Coin coin) {
+	public void addCoin(Coin coin)
+	{
 		switch (coin) {
 		case PENNY:
 			coinReturn += "(1)";
@@ -47,18 +52,22 @@ public class CoinMechanism {
 		}
 	}
 
-	public void pressCoinReturn() {
-		while (current_transaction_coins[Coin.NICKEL.getIdx()] > 0) {
+	public void pressCoinReturn()
+	{
+		while (current_transaction_coins[Coin.NICKEL.getIdx()] > 0)
+		{
 			coinReturn += "(5)";
 			current_transaction_coins[Coin.NICKEL.getIdx()]--;
 		}
 
-		while (current_transaction_coins[Coin.DIME.getIdx()] > 0) {
+		while (current_transaction_coins[Coin.DIME.getIdx()] > 0)
+		{
 			coinReturn += "(10)";
 			current_transaction_coins[Coin.DIME.getIdx()]--;
 		}
 
-		while (current_transaction_coins[Coin.QUARTER.getIdx()] > 0) {
+		while (current_transaction_coins[Coin.QUARTER.getIdx()] > 0)
+		{
 			coinReturn += "(25)";
 			current_transaction_coins[Coin.QUARTER.getIdx()]--;
 		}
@@ -66,11 +75,13 @@ public class CoinMechanism {
 		current_transaction = 0.0f;
 	}
 
-	public String getCoinReturnString() {
+	public String getCoinReturnString()
+	{
 		return coinReturn;
 	}
 
-	public void emptyCoinReturn() {
+	public void emptyCoinReturn()
+	{
 		coinReturn = "";
 	}
 }

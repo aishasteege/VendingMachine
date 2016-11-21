@@ -34,4 +34,12 @@ public class VendingMachineTest
 		vendingMachine.SelectProduct(Product.COLA);
 		assertEquals("PRICE $1.00", vendingMachine.getDisplayString());
 	}
+
+	@Test
+	public void DisplayInsertCoinAfterProductSelectedPriceIfNotEnoughMoney()
+	{
+		vendingMachine.SelectProduct(Product.CANDY);
+		assertEquals("PRICE $0.65", vendingMachine.getDisplayString());
+		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
+	}
 }

@@ -15,7 +15,10 @@ public class VendingMachine
 	{
 		if (m_current_selection != null)
 		{
-			return "PRICE " + m_current_selection.GetPriceString();
+
+			String price = "PRICE " + m_current_selection.GetPriceString();
+			m_current_selection = null;
+			return price;
 		}
 		else if (m_coin_mechanism.isEmpty())
 		{
