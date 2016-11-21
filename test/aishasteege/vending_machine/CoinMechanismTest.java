@@ -74,21 +74,42 @@ public class CoinMechanismTest
 		assertTrue(coinMechanism.isEmpty());
 		coinMechanism.addCoin(Coin.QUARTER);
 		coinMechanism.addCoin(Coin.QUARTER);
-		
+
 		assertTrue(coinMechanism.completeTransaction(.50f));
 		assertTrue(coinMechanism.isEmpty());
 	}
-	
+
 	@Test
 	public void CoinReturnGetsResetAfterTransation()
 	{
 		assertTrue(coinMechanism.isEmpty());
 		coinMechanism.addCoin(Coin.QUARTER);
 		coinMechanism.addCoin(Coin.QUARTER);
-		
+
 		assertTrue(coinMechanism.completeTransaction(.50f));
 
 		coinMechanism.pressCoinReturn();
 		assertEquals("", coinMechanism.getCoinReturnString());
+	}
+
+	@Test
+	public void MakeChangeForTransaction()
+	{
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+
+		assertTrue(coinMechanism.completeTransaction(0.50f));
+		assertEquals("(25)", coinMechanism.getCoinReturnString());
+		coinMechanism.emptyCoinReturn();
+
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.DIME);
+		coinMechanism.addCoin(Coin.DIME);
+		coinMechanism.addCoin(Coin.DIME);
+
+		assertTrue(coinMechanism.completeTransaction(.65f));
+		assertEquals("(10)(5)", coinMechanism.getCoinReturnString());
 	}
 }

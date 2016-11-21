@@ -33,7 +33,8 @@ public class CoinMechanism
 
 	public void addCoin(Coin coin)
 	{
-		switch (coin) {
+		switch (coin)
+		{
 		case PENNY:
 			coinReturn += "(1)";
 			break;
@@ -89,7 +90,24 @@ public class CoinMechanism
 	{
 		if (transaction_price <= current_transaction)
 		{
-			current_transaction = 0.0f;
+			current_transaction -= transaction_price;
+
+			while (current_transaction >= 0.25f)
+			{
+				coinReturn += "(25)";
+				current_transaction -= 0.25f;
+			}
+			while (current_transaction >= 0.1f)
+			{
+				coinReturn += "(10)";
+				current_transaction -= 0.10f;
+			}
+			while (current_transaction >= 0.05f)
+			{
+				coinReturn += "(5)";
+				current_transaction -= 0.05f;
+			}
+
 			for (int i = 0; i < Coin.NUM_COINS; i++)
 			{
 				current_transaction_coins[i] = 0;
