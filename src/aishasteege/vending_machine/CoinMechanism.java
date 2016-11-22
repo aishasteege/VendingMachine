@@ -76,21 +76,8 @@ public class CoinMechanism
 			float change = GetCurrentTransactionValue() - transaction_price;
 
 			SaveCoin();
-
-			for (; change >= 0.25; change -= 0.25)
-			{
-				current_transaction_coins[Coin.QUARTER.getIdx()]++;
-			}
-			for (; change >= 0.1; change -= 0.1)
-			{
-				current_transaction_coins[Coin.DIME.getIdx()]++;
-			}
-			for (; change >= 0.05; change -= 0.05)
-			{
-				current_transaction_coins[Coin.NICKEL.getIdx()]++;
-			}
-			pressCoinReturn();
-
+			MakeChange ( change );
+			
 			return true;
 		}
 		return false;
@@ -99,5 +86,22 @@ public class CoinMechanism
 	private void SaveCoin()
 	{
 		java.util.Arrays.fill(current_transaction_coins, 0);
+	}
+	
+	private void MakeChange( float change )
+	{
+		for (; change >= 0.25; change -= 0.25)
+		{
+			current_transaction_coins[Coin.QUARTER.getIdx()]++;
+		}
+		for (; change >= 0.1; change -= 0.1)
+		{
+			current_transaction_coins[Coin.DIME.getIdx()]++;
+		}
+		for (; change >= 0.05; change -= 0.05)
+		{
+			current_transaction_coins[Coin.NICKEL.getIdx()]++;
+		}
+		pressCoinReturn();
 	}
 }
