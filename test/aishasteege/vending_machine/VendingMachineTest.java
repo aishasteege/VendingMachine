@@ -92,4 +92,14 @@ public class VendingMachineTest
 		vendingMachine.SelectProduct(Product.CHIPS);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 	}
+	
+	@Test
+	public void DisplayInsertCoinAfterSoldOutMessage()
+	{
+		vendingMachine.StockProduct(Product.CANDY, -1);
+		
+		vendingMachine.SelectProduct(Product.CANDY);
+		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
+		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
+	}
 }

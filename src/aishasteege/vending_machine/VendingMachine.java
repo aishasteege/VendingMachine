@@ -36,6 +36,7 @@ public class VendingMachine
 		{
 			if (m_inventory_map.get(m_current_selection) == 0)
 			{
+				m_current_selection = null;
 				return "SOLD OUT";
 			}
 			String price = "PRICE " + m_current_selection.GetPriceString();
