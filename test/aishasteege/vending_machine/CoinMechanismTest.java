@@ -54,7 +54,7 @@ public class CoinMechanismTest
 		assertEquals("$0.35", coinMechanism.GetCurrentTransactionString());
 
 		coinMechanism.pressCoinReturn();
-		assertEquals("(10)(25)", coinMechanism.getCoinReturnString());
+		assertEquals("(25)(10)", coinMechanism.getCoinReturnString());
 		assertTrue(coinMechanism.isEmpty());
 		coinMechanism.emptyCoinReturn();
 	}
