@@ -1,13 +1,15 @@
 package aishasteege.vending_machine;
 
-import static org.junit.Assert.assertEquals;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class VendingMachine
 {
-	CoinMechanism m_coin_mechanism;
-	Product m_current_selection;
-	boolean m_transaction_complete;
-	String m_product_dispenser;
+	private CoinMechanism m_coin_mechanism;
+	private Product m_current_selection;
+	private boolean m_transaction_complete;
+	private String m_product_dispenser;
+	private Map<Product, Integer> m_inventory_map;
 
 	public VendingMachine()
 	{
@@ -15,6 +17,11 @@ public class VendingMachine
 		m_current_selection = null;
 		m_transaction_complete = false;
 		m_product_dispenser = new String();
+		m_inventory_map = new EnumMap<Product, Integer>(Product.class);
+
+		m_inventory_map.put(Product.CANDY, 0);
+		m_inventory_map.put(Product.CHIPS, 0);
+		m_inventory_map.put(Product.COLA, 0);
 	}
 
 	public String getDisplayString()
@@ -24,13 +31,19 @@ public class VendingMachine
 			m_transaction_complete = false;
 			return "THANK YOU";
 		}
+
 		if (m_current_selection != null)
 		{
+			if (m_inventory_map.get(m_current_selection) == 0)
+			{
+				return "SOLD OUT";
+			}
 			String price = "PRICE " + m_current_selection.GetPriceString();
 			m_current_selection = null;
 			return price;
 		}
-		else if (m_coin_mechanism.isEmpty())
+
+		if (m_coin_mechanism.isEmpty())
 		{
 			return "INSERT COIN";
 		}
@@ -70,6 +83,7 @@ public class VendingMachine
 		if (m_coin_mechanism.completeTransaction(product.GetPrice()))
 		{
 			m_transaction_complete = true;
+			StockProduct(product, -1);
 
 			switch (product)
 			{
@@ -93,5 +107,14 @@ public class VendingMachine
 	public void takeProduct()
 	{
 		m_product_dispenser = "";
+	}
+
+	public void StockProduct(Product product, int num_items)
+	{
+		Integer current_count = m_inventory_map.get(product);
+
+		current_count += num_items;
+
+		m_inventory_map.put(product, current_count);
 	}
 }
