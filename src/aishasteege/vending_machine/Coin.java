@@ -7,17 +7,27 @@ public enum Coin
 	private int m_idx;
 	private String m_icon;
 
-	private Coin(int idx, String string_icon)
+	/***************************************************************************
+	 * @param idx of the coin in the enumeration
+	 * @param icon is the string representation of the coin
+	 */
+	private Coin(int idx, String icon)
 	{
 		m_idx = idx;
-		m_icon = string_icon;
+		m_icon = icon;
 	}
 
+	/***************************************************************************
+	 * @return the index in the enumeration
+	 */
 	public int getIdx()
 	{
 		return m_idx;
 	}
 	
+	/***************************************************************************
+	 * @return the string representation of the coin 
+	 */
 	public String getIcon()
 	{
 		return m_icon;
