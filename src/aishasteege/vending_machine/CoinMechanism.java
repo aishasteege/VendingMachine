@@ -97,12 +97,9 @@ public class CoinMechanism
 	 */
 	private void SaveCoin()
 	{
-		m_bank_coins[Coin.NICKEL.getIdx()] += 
-				m_current_transaction_coins[Coin.NICKEL.getIdx()];
-		m_bank_coins[Coin.DIME.getIdx()] += 
-				m_current_transaction_coins[Coin.DIME.getIdx()];
-		m_bank_coins[Coin.QUARTER.getIdx()] += 
-				m_current_transaction_coins[Coin.QUARTER.getIdx()];
+		m_bank_coins[Coin.NICKEL.getIdx()] += m_current_transaction_coins[Coin.NICKEL.getIdx()];
+		m_bank_coins[Coin.DIME.getIdx()] += m_current_transaction_coins[Coin.DIME.getIdx()];
+		m_bank_coins[Coin.QUARTER.getIdx()] += m_current_transaction_coins[Coin.QUARTER.getIdx()];
 
 		java.util.Arrays.fill(m_current_transaction_coins, 0);
 	}
@@ -149,6 +146,9 @@ public class CoinMechanism
 		}
 	}
 
+	/***************************************************************************
+	 * @return the combined value of the bank coins
+	 */
 	public float getBankValue()
 	{
 		float value = 0.0f;
@@ -156,5 +156,13 @@ public class CoinMechanism
 		value += m_bank_coins[Coin.DIME.getIdx()] * 0.1;
 		value += m_bank_coins[Coin.QUARTER.getIdx()] * 0.25;
 		return value;
+	}
+
+	/***************************************************************************
+	 * @return true if we do not have a nickel and a dime in the bank
+	 */
+	public boolean exactChangeRequired()
+	{
+		return (m_bank_coins[Coin.DIME.getIdx()] == 0) || (m_bank_coins[Coin.NICKEL.getIdx()] == 0);
 	}
 }

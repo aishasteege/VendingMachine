@@ -127,4 +127,25 @@ public class CoinMechanismTest
 		assertTrue(coinMechanism.completeTransaction(.65f));
 		assertEquals(1.15, coinMechanism.getBankValue(), .0001f);
 	}
+	
+	@Test
+	public void ExactChangeRequiredIfBankDoesNotHaveADimeAndNickel()
+	{
+		assertTrue(coinMechanism.exactChangeRequired());
+		
+		coinMechanism.addCoin(Coin.QUARTER);
+		coinMechanism.addCoin(Coin.QUARTER);
+
+		assertTrue(coinMechanism.completeTransaction(0.50f));
+		assertTrue(coinMechanism.exactChangeRequired());
+
+		coinMechanism.addCoin(Coin.DIME);
+		assertTrue(coinMechanism.completeTransaction(0.10f));
+		assertTrue(coinMechanism.exactChangeRequired());
+		
+		coinMechanism.addCoin(Coin.NICKEL);
+		coinMechanism.addCoin(Coin.NICKEL);
+		assertTrue(coinMechanism.completeTransaction(0.10f));
+		assertFalse(coinMechanism.exactChangeRequired());
+	}
 }
