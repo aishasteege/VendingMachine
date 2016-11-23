@@ -165,4 +165,13 @@ public class CoinMechanism
 	{
 		return (m_bank_coins[Coin.DIME.getIdx()] == 0) || (m_bank_coins[Coin.NICKEL.getIdx()] == 0);
 	}
+
+	/***************************************************************************
+	 * @param coin the coin to stock
+	 * @param count the number of said coin to stock into the bank
+	 */
+	public void StockBank(Coin coin, int count)
+	{
+		m_bank_coins[coin.getIdx()] += count;
+	}
 }

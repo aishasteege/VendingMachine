@@ -102,4 +102,5 @@ public class VendingMachineTest
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
+	
 }
