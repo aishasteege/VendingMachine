@@ -5,8 +5,9 @@ import java.text.DecimalFormat;
 // class for the coin mechanism of a vending machine
 public class CoinMechanism
 {
-	int[] current_transaction_coins = new int[Coin.NUM_COINS];
-	String coinReturn = new String();
+	int[] m_current_transaction_coins = new int[Coin.NUM_COINS];
+	int[] m_bank_coins = new int[Coin.NUM_COINS];
+	String m_coinReturn = new String();
 
 	/***************************************************************************
 	 * @return true if the no coins have been added
@@ -30,22 +31,20 @@ public class CoinMechanism
 	 */
 	public String getCoinReturnString()
 	{
-		return coinReturn;
+		return m_coinReturn;
 	}
 
 	/***************************************************************************
-	 * @param coin
-	 *            the coin to add to the coin mechanism
+	 * @param coin - the coin to add to the coin mechanism
 	 */
 	public void addCoin(Coin coin)
 	{
-		current_transaction_coins[coin.getIdx()]++;
+		m_current_transaction_coins[coin.getIdx()]++;
 		returnCoin(Coin.PENNY);
 	}
 
 	/***************************************************************************
-	 * @param transaction_price
-	 *            the price of the item being purchased
+	 * @param transaction_price - the price of the item being purchased
 	 * @return true if the transaction was completed or false if there was not
 	 *         enough money to complete the transaction
 	 */
@@ -78,7 +77,7 @@ public class CoinMechanism
 	 */
 	public void emptyCoinReturn()
 	{
-		coinReturn = "";
+		m_coinReturn = "";
 	}
 
 	/***************************************************************************
@@ -87,9 +86,9 @@ public class CoinMechanism
 	private float GetCurrentTransactionValue()
 	{
 		float value = 0.0f;
-		value += current_transaction_coins[Coin.NICKEL.getIdx()] * 0.05;
-		value += current_transaction_coins[Coin.DIME.getIdx()] * 0.1;
-		value += current_transaction_coins[Coin.QUARTER.getIdx()] * 0.25;
+		value += m_current_transaction_coins[Coin.NICKEL.getIdx()] * 0.05;
+		value += m_current_transaction_coins[Coin.DIME.getIdx()] * 0.1;
+		value += m_current_transaction_coins[Coin.QUARTER.getIdx()] * 0.25;
 		return value;
 	}
 
@@ -98,51 +97,64 @@ public class CoinMechanism
 	 */
 	private void SaveCoin()
 	{
-		java.util.Arrays.fill(current_transaction_coins, 0);
+		m_bank_coins[Coin.NICKEL.getIdx()] += 
+				m_current_transaction_coins[Coin.NICKEL.getIdx()];
+		m_bank_coins[Coin.DIME.getIdx()] += 
+				m_current_transaction_coins[Coin.DIME.getIdx()];
+		m_bank_coins[Coin.QUARTER.getIdx()] += 
+				m_current_transaction_coins[Coin.QUARTER.getIdx()];
+
+		java.util.Arrays.fill(m_current_transaction_coins, 0);
 	}
 
 	/***************************************************************************
-	 * @param change the change to give back to the user
+	 * @param change - the change to give back to the user
 	 */
 	private void MakeChange(float change)
 	{
 		for (; change >= 0.25; change -= 0.25)
 		{
-			current_transaction_coins[Coin.QUARTER.getIdx()]++;
+			m_current_transaction_coins[Coin.QUARTER.getIdx()]++;
 		}
 		for (; change >= 0.1; change -= 0.1)
 		{
-			current_transaction_coins[Coin.DIME.getIdx()]++;
+			m_current_transaction_coins[Coin.DIME.getIdx()]++;
 		}
 		for (; change >= 0.05; change -= 0.05)
 		{
-			current_transaction_coins[Coin.NICKEL.getIdx()]++;
+			m_current_transaction_coins[Coin.NICKEL.getIdx()]++;
 		}
 		pressCoinReturn();
 	}
 
 	/***************************************************************************
-	 * @param coin
-	 *            coin to return all of
+	 * @param coin - coin to return all of
 	 */
 	private void returnCoin(Coin coin)
 	{
-		int count = current_transaction_coins[coin.getIdx()];
+		int count = m_current_transaction_coins[coin.getIdx()];
 		returnCoin(coin, count);
 	}
 
 	/***************************************************************************
-	 * @param coin
-	 *            coin to return
-	 * @param count
-	 *            how many of said coin to return
+	 * @param coin - coin to return
+	 * @param count - how many of said coin to return
 	 */
 	private void returnCoin(Coin coin, int count)
 	{
-		if (count <= current_transaction_coins[coin.getIdx()])
+		if (count <= m_current_transaction_coins[coin.getIdx()])
 		{
-			coinReturn += new String(new char[count]).replace("\0", coin.getIcon());
-			current_transaction_coins[coin.getIdx()] -= count;
+			m_coinReturn += new String(new char[count]).replace("\0", coin.getIcon());
+			m_current_transaction_coins[coin.getIdx()] -= count;
 		}
+	}
+
+	public float getBankValue()
+	{
+		float value = 0.0f;
+		value += m_bank_coins[Coin.NICKEL.getIdx()] * 0.05;
+		value += m_bank_coins[Coin.DIME.getIdx()] * 0.1;
+		value += m_bank_coins[Coin.QUARTER.getIdx()] * 0.25;
+		return value;
 	}
 }
