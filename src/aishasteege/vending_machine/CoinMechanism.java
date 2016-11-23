@@ -170,8 +170,16 @@ public class CoinMechanism
 	 * @param coin the coin to stock
 	 * @param count the number of said coin to stock into the bank
 	 */
-	public void StockBank(Coin coin, int count)
+	public void stockBank(Coin coin, int count)
 	{
 		m_bank_coins[coin.getIdx()] += count;
+	}
+
+	/***************************************************************************
+	 * clear the bank of coins
+	 */
+	public void emptyBank()
+	{
+		java.util.Arrays.fill(m_bank_coins, 0);
 	}
 }

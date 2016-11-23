@@ -127,12 +127,12 @@ public class CoinMechanismTest
 		assertTrue(coinMechanism.completeTransaction(.65f));
 		assertEquals(1.15, coinMechanism.getBankValue(), .0001f);
 	}
-	
+
 	@Test
 	public void ExactChangeRequiredIfBankDoesNotHaveADimeAndNickel()
 	{
 		assertTrue(coinMechanism.exactChangeRequired());
-		
+
 		coinMechanism.addCoin(Coin.QUARTER);
 		coinMechanism.addCoin(Coin.QUARTER);
 
@@ -142,21 +142,30 @@ public class CoinMechanismTest
 		coinMechanism.addCoin(Coin.DIME);
 		assertTrue(coinMechanism.completeTransaction(0.10f));
 		assertTrue(coinMechanism.exactChangeRequired());
-		
+
 		coinMechanism.addCoin(Coin.NICKEL);
 		coinMechanism.addCoin(Coin.NICKEL);
 		assertTrue(coinMechanism.completeTransaction(0.10f));
 		assertFalse(coinMechanism.exactChangeRequired());
 	}
-	
+
 	@Test
 	public void AllowTheBankToBeStockedWithCoins()
 	{
 		assertEquals(0.0f, coinMechanism.getBankValue(), .0001f);
-		coinMechanism.StockBank(Coin.NICKEL, 1);
+		coinMechanism.stockBank(Coin.NICKEL, 1);
 		assertEquals(0.05f, coinMechanism.getBankValue(), .0001f);
-		coinMechanism.StockBank(Coin.DIME, 1);
+		coinMechanism.stockBank(Coin.DIME, 1);
 		assertEquals(0.15f, coinMechanism.getBankValue(), .0001f);
-		coinMechanism.StockBank(Coin.QUARTER, 1);
-		assertEquals(0.4f, coinMechanism.getBankValue(), .0001f);	}
+		coinMechanism.stockBank(Coin.QUARTER, 1);
+		assertEquals(0.4f, coinMechanism.getBankValue(), .0001f);
+	}
+	
+	@Test
+	public void AllowTheBankToBeEmptied()
+	{
+		coinMechanism.stockBank(Coin.QUARTER, 1);
+		coinMechanism.emptyBank();
+		assertEquals(0.0f, coinMechanism.getBankValue(), .0001f);
+	}
 }

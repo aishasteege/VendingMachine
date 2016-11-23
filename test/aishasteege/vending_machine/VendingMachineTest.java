@@ -15,6 +15,9 @@ public class VendingMachineTest
 		vendingMachine.StockProduct(Product.CANDY, 1);
 		vendingMachine.StockProduct(Product.COLA, 1);
 		vendingMachine.StockProduct(Product.CHIPS, 1);
+		
+		vendingMachine.m_coin_mechanism.stockBank(Coin.DIME, 1);
+		vendingMachine.m_coin_mechanism.stockBank(Coin.NICKEL, 1);
 	}
 
 	@Test
@@ -103,4 +106,10 @@ public class VendingMachineTest
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
 	
+	@Test
+	public void DisplayExactChangeRequiredIfChangeCannotBeMadeForAnyProducts()
+	{
+		vendingMachine.m_coin_mechanism.emptyBank();
+		assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplayString());
+	}
 }

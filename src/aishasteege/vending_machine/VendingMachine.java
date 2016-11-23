@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class VendingMachine
 {
-	private CoinMechanism m_coin_mechanism;
+	CoinMechanism m_coin_mechanism;
 	private Product m_current_selection;
 	private boolean m_transaction_complete;
 	private String m_product_dispenser;
@@ -46,6 +46,11 @@ public class VendingMachine
 
 		if (m_coin_mechanism.isEmpty())
 		{
+			if ( m_coin_mechanism.exactChangeRequired())
+			{
+				return "EXACT CHANGE ONLY";
+			}
+			
 			return "INSERT COIN";
 		}
 		else
