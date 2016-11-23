@@ -63,7 +63,7 @@ public class VendingMachineTest
 
 		vendingMachine.SelectProduct(Product.CHIPS);
 
-		assertEquals("[A BIG BAG OF CHIPS]", vendingMachine.getProductDispenseString());
+		assertEquals(Product.CHIPS.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
 
 		vendingMachine.addCoin(Coin.QUARTER);
@@ -72,7 +72,7 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.SelectProduct(Product.COLA);
 
-		assertEquals("[AN ICE COLD COLA]", vendingMachine.getProductDispenseString());
+		assertEquals(Product.COLA.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
 
 		vendingMachine.addCoin(Coin.QUARTER);
@@ -80,7 +80,7 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.SelectProduct(Product.CANDY);
 
-		assertEquals("[SWEET SWEET CANDY]", vendingMachine.getProductDispenseString());
+		assertEquals(Product.CANDY.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
 	}
 

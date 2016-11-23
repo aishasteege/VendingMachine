@@ -6,7 +6,6 @@ public class VendingMachine
 	private Inventory m_product_inventory;
 	private Product m_current_selection;
 	private boolean m_transaction_complete;
-	private String m_product_dispenser;
 
 	public VendingMachine()
 	{
@@ -14,7 +13,6 @@ public class VendingMachine
 		m_product_inventory = new Inventory();
 		m_current_selection = null;
 		m_transaction_complete = false;
-		m_product_dispenser = new String();
 	}
 
 	public String getDisplayString()
@@ -32,7 +30,7 @@ public class VendingMachine
 				m_current_selection = null;
 				return "SOLD OUT";
 			}
-			String price = "PRICE " + m_current_selection.GetPriceString();
+			String price = "PRICE " + m_current_selection.getPriceString();
 			m_current_selection = null;
 			return price;
 		}
@@ -59,7 +57,7 @@ public class VendingMachine
 
 	public String getProductDispenseString()
 	{
-		return m_product_dispenser;
+		return m_product_inventory.getProductDispenser();
 	}
 
 	public void addCoin(Coin coin)
@@ -89,23 +87,12 @@ public class VendingMachine
 
 	public void SelectProduct(Product product)
 	{
-		if (m_coin_mechanism.completeTransaction(product.GetPrice()))
+		if (m_coin_mechanism.completeTransaction(product.getPrice()))
 		{
-			m_transaction_complete = true;
-			stockProduct(product, -1);
-
-			switch (product)
-			{
-			case COLA:
-				m_product_dispenser = "[AN ICE COLD COLA]";
-				break;
-			case CHIPS:
-				m_product_dispenser = "[A BIG BAG OF CHIPS]";
-				break;
-			case CANDY:
-				m_product_dispenser = "[SWEET SWEET CANDY]";
-				break;
-			}
+			m_transaction_complete = m_product_inventory.dispenseProduct(product);
+			
+			
+			
 		}
 		else
 		{
@@ -115,7 +102,7 @@ public class VendingMachine
 
 	public void takeProduct()
 	{
-		m_product_dispenser = "";
+		m_product_inventory.takeProduct();
 	}
 
 	public void stockProduct(Product product, int count)

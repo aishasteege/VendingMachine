@@ -5,8 +5,10 @@ import java.text.DecimalFormat;
 // class for the coin mechanism of a vending machine
 public class CoinMechanism
 {
-	int[] m_current_transaction_coins = new int[Coin.NUM_COINS];
-	int[] m_bank_coins = new int[Coin.NUM_COINS];
+	public static int NUM_COINS = 4;
+
+	int[] m_current_transaction_coins = new int[NUM_COINS];
+	int[] m_bank_coins = new int[NUM_COINS];
 	String m_coinReturn = new String();
 
 	/***************************************************************************
