@@ -12,12 +12,12 @@ public class VendingMachineTest
 	public void setUp()
 	{
 		vendingMachine = new VendingMachine();
-		vendingMachine.StockProduct(Product.CANDY, 1);
-		vendingMachine.StockProduct(Product.COLA, 1);
-		vendingMachine.StockProduct(Product.CHIPS, 1);
+		vendingMachine.stockProduct(Product.CANDY, 1);
+		vendingMachine.stockProduct(Product.COLA, 1);
+		vendingMachine.stockProduct(Product.CHIPS, 1);
 		
-		vendingMachine.m_coin_mechanism.stockBank(Coin.DIME, 1);
-		vendingMachine.m_coin_mechanism.stockBank(Coin.NICKEL, 1);
+		vendingMachine.stockBank(Coin.DIME, 1);
+		vendingMachine.stockBank(Coin.NICKEL, 1);
 	}
 
 	@Test
@@ -60,6 +60,7 @@ public class VendingMachineTest
 	{
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
+
 		vendingMachine.SelectProduct(Product.CHIPS);
 
 		assertEquals("[A BIG BAG OF CHIPS]", vendingMachine.getProductDispenseString());
@@ -99,7 +100,7 @@ public class VendingMachineTest
 	@Test
 	public void DisplayInsertCoinAfterSoldOutMessage()
 	{
-		vendingMachine.StockProduct(Product.CANDY, -1);
+		vendingMachine.stockProduct(Product.CANDY, -1);
 		
 		vendingMachine.SelectProduct(Product.CANDY);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
@@ -109,7 +110,7 @@ public class VendingMachineTest
 	@Test
 	public void DisplayExactChangeRequiredIfChangeCannotBeMadeForAnyProducts()
 	{
-		vendingMachine.m_coin_mechanism.emptyBank();
+		vendingMachine.emptyBank();
 		assertEquals("EXACT CHANGE ONLY", vendingMachine.getDisplayString());
 	}
 }

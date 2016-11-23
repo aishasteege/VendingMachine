@@ -1,27 +1,20 @@
 package aishasteege.vending_machine;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 public class VendingMachine
 {
-	CoinMechanism m_coin_mechanism;
+	private CoinMechanism m_coin_mechanism;
+	private Inventory m_product_inventory;
 	private Product m_current_selection;
 	private boolean m_transaction_complete;
 	private String m_product_dispenser;
-	private Map<Product, Integer> m_inventory_map;
 
 	public VendingMachine()
 	{
 		m_coin_mechanism = new CoinMechanism();
+		m_product_inventory = new Inventory();
 		m_current_selection = null;
 		m_transaction_complete = false;
 		m_product_dispenser = new String();
-		m_inventory_map = new EnumMap<Product, Integer>(Product.class);
-
-		m_inventory_map.put(Product.CANDY, 0);
-		m_inventory_map.put(Product.CHIPS, 0);
-		m_inventory_map.put(Product.COLA, 0);
 	}
 
 	public String getDisplayString()
@@ -34,7 +27,7 @@ public class VendingMachine
 
 		if (m_current_selection != null)
 		{
-			if (m_inventory_map.get(m_current_selection) == 0)
+			if (m_product_inventory.getProductCount(m_current_selection) == 0)
 			{
 				m_current_selection = null;
 				return "SOLD OUT";
@@ -46,11 +39,11 @@ public class VendingMachine
 
 		if (m_coin_mechanism.isEmpty())
 		{
-			if ( m_coin_mechanism.exactChangeRequired())
+			if (m_coin_mechanism.exactChangeRequired())
 			{
 				return "EXACT CHANGE ONLY";
 			}
-			
+
 			return "INSERT COIN";
 		}
 		else
@@ -84,12 +77,22 @@ public class VendingMachine
 		m_coin_mechanism.emptyCoinReturn();
 	}
 
+	public void stockBank(Coin coin, int count)
+	{
+		m_coin_mechanism.stockBank(coin, count);
+	}
+	
+	public void emptyBank()
+	{
+		m_coin_mechanism.emptyBank();
+	}
+
 	public void SelectProduct(Product product)
 	{
 		if (m_coin_mechanism.completeTransaction(product.GetPrice()))
 		{
 			m_transaction_complete = true;
-			StockProduct(product, -1);
+			stockProduct(product, -1);
 
 			switch (product)
 			{
@@ -115,12 +118,8 @@ public class VendingMachine
 		m_product_dispenser = "";
 	}
 
-	public void StockProduct(Product product, int num_items)
+	public void stockProduct(Product product, int count)
 	{
-		Integer current_count = m_inventory_map.get(product);
-
-		current_count += num_items;
-
-		m_inventory_map.put(product, current_count);
+		m_product_inventory.stockProduct( product, count);
 	}
 }
