@@ -25,6 +25,17 @@ public class VendingMachineTest
 	{
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
+	
+	@Test
+	public void DisplayTotalOfInsertedCoinsAsTheyAreAdded()
+	{
+		vendingMachine.addCoin(Coin.NICKEL);
+		assertEquals("$0.05", vendingMachine.getDisplayString());
+		vendingMachine.addCoin(Coin.DIME);
+		assertEquals("$0.15", vendingMachine.getDisplayString());
+		vendingMachine.addCoin(Coin.QUARTER);
+		assertEquals("$0.40", vendingMachine.getDisplayString());
+	}
 
 	@Test
 	public void DisplayPriceOfProductWhenSelected()
@@ -96,9 +107,19 @@ public class VendingMachineTest
 		vendingMachine.SelectProduct(Product.CHIPS);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 	}
-	
+		
 	@Test
 	public void DisplayInsertCoinAfterSoldOutMessage()
+	{
+		vendingMachine.stockProduct(Product.CANDY, -1);
+		
+		vendingMachine.SelectProduct(Product.CANDY);
+		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
+		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
+	}
+
+	@Test
+	public void DisplayCurrentAfterSoldOutMessage()
 	{
 		vendingMachine.stockProduct(Product.CANDY, -1);
 		
