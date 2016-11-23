@@ -15,7 +15,7 @@ public class VendingMachineTest
 		vendingMachine.stockProduct(Product.CANDY, 1);
 		vendingMachine.stockProduct(Product.COLA, 1);
 		vendingMachine.stockProduct(Product.CHIPS, 1);
-		
+
 		vendingMachine.stockBank(Coin.DIME, 1);
 		vendingMachine.stockBank(Coin.NICKEL, 1);
 	}
@@ -25,7 +25,7 @@ public class VendingMachineTest
 	{
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
-	
+
 	@Test
 	public void DisplayTotalOfInsertedCoinsAsTheyAreAdded()
 	{
@@ -107,27 +107,29 @@ public class VendingMachineTest
 		vendingMachine.SelectProduct(Product.CHIPS);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 	}
-		
+	
+	@Test
+	public void DisplaySoldOutThenCoinValue()
+	{
+		vendingMachine.stockProduct(Product.CHIPS, -1);
+
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.addCoin(Coin.QUARTER);
+		vendingMachine.SelectProduct(Product.CHIPS);
+		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
+		assertEquals("$0.50", vendingMachine.getDisplayString());
+	}
+
 	@Test
 	public void DisplayInsertCoinAfterSoldOutMessage()
 	{
 		vendingMachine.stockProduct(Product.CANDY, -1);
-		
+
 		vendingMachine.SelectProduct(Product.CANDY);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
 
-	@Test
-	public void DisplayCurrentAfterSoldOutMessage()
-	{
-		vendingMachine.stockProduct(Product.CANDY, -1);
-		
-		vendingMachine.SelectProduct(Product.CANDY);
-		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
-		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
-	}
-	
 	@Test
 	public void DisplayExactChangeRequiredIfChangeCannotBeMadeForAnyProducts()
 	{

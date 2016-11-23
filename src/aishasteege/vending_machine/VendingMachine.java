@@ -79,7 +79,7 @@ public class VendingMachine
 	{
 		m_coin_mechanism.stockBank(coin, count);
 	}
-	
+
 	public void emptyBank()
 	{
 		m_coin_mechanism.emptyBank();
@@ -87,12 +87,10 @@ public class VendingMachine
 
 	public void SelectProduct(Product product)
 	{
-		if (m_coin_mechanism.completeTransaction(product.getPrice()))
+		if ((m_product_inventory.getProductCount(product) > 0) &&
+				m_coin_mechanism.completeTransaction(product.getPrice()))
 		{
 			m_transaction_complete = m_product_inventory.dispenseProduct(product);
-			
-			
-			
 		}
 		else
 		{
@@ -107,6 +105,6 @@ public class VendingMachine
 
 	public void stockProduct(Product product, int count)
 	{
-		m_product_inventory.stockProduct( product, count);
+		m_product_inventory.stockProduct(product, count);
 	}
 }
