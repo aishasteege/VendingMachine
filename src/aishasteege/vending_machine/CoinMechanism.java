@@ -2,33 +2,53 @@ package aishasteege.vending_machine;
 
 import java.text.DecimalFormat;
 
+// class for the coin mechanism of a vending machine
 public class CoinMechanism
 {
 	int[] current_transaction_coins = new int[Coin.NUM_COINS];
 	String coinReturn = new String();
 
+	/***************************************************************************
+	 * @return true if the no coins have been added
+	 */
 	public boolean isEmpty()
 	{
 		return GetCurrentTransactionValue() == 0.0f;
 	}
 
+	/***************************************************************************
+	 * @return the string representation of the value of the current transaction
+	 */
 	public String GetCurrentTransactionString()
 	{
 		DecimalFormat moneyFormat = new DecimalFormat("0.00");
 		return "$" + moneyFormat.format(GetCurrentTransactionValue());
 	}
 
+	/***************************************************************************
+	 * @return the string representation of the coin return
+	 */
 	public String getCoinReturnString()
 	{
 		return coinReturn;
 	}
 
+	/***************************************************************************
+	 * @param coin
+	 *            the coin to add to the coin mechanism
+	 */
 	public void addCoin(Coin coin)
 	{
 		current_transaction_coins[coin.getIdx()]++;
 		returnCoin(Coin.PENNY);
 	}
 
+	/***************************************************************************
+	 * @param transaction_price
+	 *            the price of the item being purchased
+	 * @return true if the transaction was completed or false if there was not
+	 *         enough money to complete the transaction
+	 */
 	public boolean completeTransaction(float transaction_price)
 	{
 		if (transaction_price <= GetCurrentTransactionValue())
@@ -43,6 +63,9 @@ public class CoinMechanism
 		return false;
 	}
 
+	/***************************************************************************
+	 * return all the coins to the user
+	 */
 	public void pressCoinReturn()
 	{
 		returnCoin(Coin.QUARTER);
@@ -50,11 +73,17 @@ public class CoinMechanism
 		returnCoin(Coin.NICKEL);
 	}
 
+	/***************************************************************************
+	 * user takes all the coins in the coin return
+	 */
 	public void emptyCoinReturn()
 	{
 		coinReturn = "";
 	}
 
+	/***************************************************************************
+	 * @return get the value of all the coins in the current transaction
+	 */
 	private float GetCurrentTransactionValue()
 	{
 		float value = 0.0f;
@@ -64,11 +93,17 @@ public class CoinMechanism
 		return value;
 	}
 
+	/***************************************************************************
+	 * clear the coin from the current transaction
+	 */
 	private void SaveCoin()
 	{
 		java.util.Arrays.fill(current_transaction_coins, 0);
 	}
 
+	/***************************************************************************
+	 * @param change the change to give back to the user
+	 */
 	private void MakeChange(float change)
 	{
 		for (; change >= 0.25; change -= 0.25)
@@ -86,12 +121,22 @@ public class CoinMechanism
 		pressCoinReturn();
 	}
 
+	/***************************************************************************
+	 * @param coin
+	 *            coin to return all of
+	 */
 	private void returnCoin(Coin coin)
 	{
 		int count = current_transaction_coins[coin.getIdx()];
 		returnCoin(coin, count);
 	}
 
+	/***************************************************************************
+	 * @param coin
+	 *            coin to return
+	 * @param count
+	 *            how many of said coin to return
+	 */
 	private void returnCoin(Coin coin, int count)
 	{
 		if (count <= current_transaction_coins[coin.getIdx()])
