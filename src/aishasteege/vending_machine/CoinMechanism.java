@@ -16,16 +16,16 @@ public class CoinMechanism
 	 */
 	public boolean isEmpty()
 	{
-		return GetCurrentTransactionValue() == 0.0f;
+		return getCurrentTransactionValue() == 0.0f;
 	}
 
 	/***************************************************************************
 	 * @return the string representation of the value of the current transaction
 	 */
-	public String GetCurrentTransactionString()
+	public String getCurrentTransactionString()
 	{
 		DecimalFormat moneyFormat = new DecimalFormat("0.00");
-		return "$" + moneyFormat.format(GetCurrentTransactionValue());
+		return "$" + moneyFormat.format(getCurrentTransactionValue());
 	}
 
 	/***************************************************************************
@@ -52,12 +52,12 @@ public class CoinMechanism
 	 */
 	public boolean completeTransaction(float transaction_price)
 	{
-		if (transaction_price <= GetCurrentTransactionValue())
+		if (transaction_price <= getCurrentTransactionValue())
 		{
-			float change = GetCurrentTransactionValue() - transaction_price;
+			float change = getCurrentTransactionValue() - transaction_price;
 
-			SaveCoin();
-			MakeChange(change);
+			saveCoin();
+			makeChange(change);
 
 			return true;
 		}
@@ -85,7 +85,7 @@ public class CoinMechanism
 	/***************************************************************************
 	 * @return get the value of all the coins in the current transaction
 	 */
-	private float GetCurrentTransactionValue()
+	private float getCurrentTransactionValue()
 	{
 		float value = 0.0f;
 		value += m_current_transaction_coins[Coin.NICKEL.getIdx()] * 0.05;
@@ -97,7 +97,7 @@ public class CoinMechanism
 	/***************************************************************************
 	 * clear the coin from the current transaction
 	 */
-	private void SaveCoin()
+	private void saveCoin()
 	{
 		m_bank_coins[Coin.NICKEL.getIdx()] += m_current_transaction_coins[Coin.NICKEL.getIdx()];
 		m_bank_coins[Coin.DIME.getIdx()] += m_current_transaction_coins[Coin.DIME.getIdx()];
@@ -109,7 +109,7 @@ public class CoinMechanism
 	/***************************************************************************
 	 * @param change - the change to give back to the user
 	 */
-	private void MakeChange(float change)
+	private void makeChange(float change)
 	{
 		for (; change >= 0.25; change -= 0.25)
 		{

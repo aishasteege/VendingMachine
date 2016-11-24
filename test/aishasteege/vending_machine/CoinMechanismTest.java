@@ -19,18 +19,18 @@ public class CoinMechanismTest
 	public void WhenQuarterIsAddedShowTwentyFive()
 	{
 		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.25", coinMechanism.GetCurrentTransactionString());
+		assertEquals("$0.25", coinMechanism.getCurrentTransactionString());
 	}
 
 	@Test
 	public void WhenValidCoinsAreAddedShowCombinedValue()
 	{
 		coinMechanism.addCoin(Coin.NICKEL);
-		assertEquals("$0.05", coinMechanism.GetCurrentTransactionString());
+		assertEquals("$0.05", coinMechanism.getCurrentTransactionString());
 		coinMechanism.addCoin(Coin.DIME);
-		assertEquals("$0.15", coinMechanism.GetCurrentTransactionString());
+		assertEquals("$0.15", coinMechanism.getCurrentTransactionString());
 		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.40", coinMechanism.GetCurrentTransactionString());
+		assertEquals("$0.40", coinMechanism.getCurrentTransactionString());
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class CoinMechanismTest
 	{
 		coinMechanism.addCoin(Coin.DIME);
 		coinMechanism.addCoin(Coin.QUARTER);
-		assertEquals("$0.35", coinMechanism.GetCurrentTransactionString());
+		assertEquals("$0.35", coinMechanism.getCurrentTransactionString());
 
 		coinMechanism.pressCoinReturn();
 		assertEquals("(25)(10)", coinMechanism.getCoinReturnString());

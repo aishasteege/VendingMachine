@@ -46,26 +46,25 @@ public class Main
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 			readInput(vendingMachine, input.readLine());
-			//
-			//
-			// int x = Integer.parseInt(text);
-			// double y = Double.parseDouble(text);
-
 		}
 	}
 
+	/***************************************************************************
+	 * @param machine vending machine being used
+	 * @param command entered by the user
+	 */
 	private static void readInput(VendingMachine machine, String command)
 	{
 		switch (command.toUpperCase())
 		{
 		case "S1":
-			machine.SelectProduct(Product.COLA);
+			machine.selectProduct(Product.COLA);
 			break;
 		case "S2":
-			machine.SelectProduct(Product.CHIPS);
+			machine.selectProduct(Product.CHIPS);
 			break;
 		case "S3":
-			machine.SelectProduct(Product.CANDY);
+			machine.selectProduct(Product.CANDY);
 			break;
 		case "C1":
 			machine.addCoin(Coin.PENNY);

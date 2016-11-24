@@ -40,18 +40,18 @@ public class VendingMachineTest
 	@Test
 	public void DisplayPriceOfProductWhenSelected()
 	{
-		vendingMachine.SelectProduct(Product.CANDY);
+		vendingMachine.selectProduct(Product.CANDY);
 		assertEquals("PRICE $0.65", vendingMachine.getDisplayString());
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("PRICE $0.50", vendingMachine.getDisplayString());
-		vendingMachine.SelectProduct(Product.COLA);
+		vendingMachine.selectProduct(Product.COLA);
 		assertEquals("PRICE $1.00", vendingMachine.getDisplayString());
 	}
 
 	@Test
 	public void DisplayInsertCoinAfterProductSelectedPriceIfNotEnoughMoney()
 	{
-		vendingMachine.SelectProduct(Product.CANDY);
+		vendingMachine.selectProduct(Product.CANDY);
 		assertEquals("PRICE $0.65", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
@@ -61,7 +61,7 @@ public class VendingMachineTest
 	{
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("THANK YOU", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}
@@ -72,7 +72,7 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
 
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 
 		assertEquals(Product.CHIPS.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
@@ -81,7 +81,7 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
-		vendingMachine.SelectProduct(Product.COLA);
+		vendingMachine.selectProduct(Product.COLA);
 
 		assertEquals(Product.COLA.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
@@ -89,7 +89,7 @@ public class VendingMachineTest
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
-		vendingMachine.SelectProduct(Product.CANDY);
+		vendingMachine.selectProduct(Product.CANDY);
 
 		assertEquals(Product.CANDY.getIcon(), vendingMachine.getProductDispenseString());
 		vendingMachine.takeProduct();
@@ -100,11 +100,11 @@ public class VendingMachineTest
 	{
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("THANK YOU", vendingMachine.getDisplayString());
 		vendingMachine.takeProduct();
 
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 	}
 	
@@ -115,7 +115,7 @@ public class VendingMachineTest
 
 		vendingMachine.addCoin(Coin.QUARTER);
 		vendingMachine.addCoin(Coin.QUARTER);
-		vendingMachine.SelectProduct(Product.CHIPS);
+		vendingMachine.selectProduct(Product.CHIPS);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 		assertEquals("$0.50", vendingMachine.getDisplayString());
 	}
@@ -125,7 +125,7 @@ public class VendingMachineTest
 	{
 		vendingMachine.stockProduct(Product.CANDY, -1);
 
-		vendingMachine.SelectProduct(Product.CANDY);
+		vendingMachine.selectProduct(Product.CANDY);
 		assertEquals("SOLD OUT", vendingMachine.getDisplayString());
 		assertEquals("INSERT COIN", vendingMachine.getDisplayString());
 	}

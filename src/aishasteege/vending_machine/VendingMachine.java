@@ -15,6 +15,9 @@ public class VendingMachine
 		m_transaction_complete = false;
 	}
 
+	/***************************************************************************
+	 * @return
+	 */
 	public String getDisplayString()
 	{
 		if (m_transaction_complete)
@@ -46,46 +49,71 @@ public class VendingMachine
 		}
 		else
 		{
-			return m_coin_mechanism.GetCurrentTransactionString();
+			return m_coin_mechanism.getCurrentTransactionString();
 		}
 	}
 
+	/***************************************************************************
+	 * @return the string representation of the coin return
+	 */
 	public String getCoinReturnString()
 	{
 		return m_coin_mechanism.getCoinReturnString();
 	}
 
+	/***************************************************************************
+	 * @return the string representation of the product dispenser
+	 */
 	public String getProductDispenseString()
 	{
 		return m_product_inventory.getProductDispenser();
 	}
 
+	/***************************************************************************
+	 * @param coin - the coin to add to the coin mechanism
+	 */
 	public void addCoin(Coin coin)
 	{
 		m_coin_mechanism.addCoin(coin);
 	}
 
+	/***************************************************************************
+	 * return all the coins to the user
+	 */
 	public void pressCoinReturn()
 	{
 		m_coin_mechanism.pressCoinReturn();
 	}
 
+	/***************************************************************************
+	 * empty the coins in the coin return
+	 */
 	public void emptyCoinReturn()
 	{
 		m_coin_mechanism.emptyCoinReturn();
 	}
 
+	/***************************************************************************
+	 * @param coin the coin to stock
+	 * @param count the number of said coin to stock into the bank
+	 */
 	public void stockBank(Coin coin, int count)
 	{
 		m_coin_mechanism.stockBank(coin, count);
 	}
 
+	/***************************************************************************
+	 * clear the bank of coins
+	 */
 	public void emptyBank()
 	{
 		m_coin_mechanism.emptyBank();
 	}
 
-	public void SelectProduct(Product product)
+	/***************************************************************************
+	 * @param product the product selected by the user
+	 */
+	public void selectProduct(Product product)
 	{
 		if ((m_product_inventory.getProductCount(product) > 0) &&
 				m_coin_mechanism.completeTransaction(product.getPrice()))
@@ -98,11 +126,18 @@ public class VendingMachine
 		}
 	}
 
+	/***************************************************************************
+	 * clear the products from the dispenser
+	 */
 	public void takeProduct()
 	{
 		m_product_inventory.takeProduct();
 	}
 
+	/***************************************************************************
+	 * @param product - the product to stock
+	 * @param count - how many of the specified product are bring added
+	 */
 	public void stockProduct(Product product, int count)
 	{
 		m_product_inventory.stockProduct(product, count);
