@@ -16,7 +16,7 @@ public class VendingMachine
 	}
 
 	/***************************************************************************
-	 * @return
+	 * @return the string to be show on the display of the machine
 	 */
 	public String getDisplayString()
 	{
@@ -28,16 +28,36 @@ public class VendingMachine
 
 		if (m_current_selection != null)
 		{
-			if (m_product_inventory.getProductCount(m_current_selection) == 0)
-			{
-				m_current_selection = null;
-				return "SOLD OUT";
-			}
-			String price = "PRICE " + m_current_selection.getPriceString();
+			Product selected_product = m_current_selection;
 			m_current_selection = null;
-			return price;
+
+			return getSelectedProductDisplayString(selected_product);
 		}
 
+		return getCoinMechanismDislpayString();
+	}
+
+	/***************************************************************************
+	 * @param product the selected product to provide information for
+	 * @return the string to display about the selected product
+	 */
+	private String getSelectedProductDisplayString(Product product)
+	{
+		if (m_product_inventory.getProductCount(product) == 0)
+		{
+			return "SOLD OUT";
+		}
+
+		String price = "PRICE " + product.getPriceString();
+
+		return price;
+	}
+
+	/***************************************************************************
+	 * @return the string about the state of the coin mechanism
+	 */
+	private String getCoinMechanismDislpayString()
+	{
 		if (m_coin_mechanism.isEmpty())
 		{
 			if (m_coin_mechanism.exactChangeRequired())
@@ -47,10 +67,8 @@ public class VendingMachine
 
 			return "INSERT COIN";
 		}
-		else
-		{
-			return m_coin_mechanism.getCurrentTransactionString();
-		}
+
+		return m_coin_mechanism.getCurrentTransactionString();
 	}
 
 	/***************************************************************************
